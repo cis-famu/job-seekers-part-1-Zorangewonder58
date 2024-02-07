@@ -1,4 +1,4 @@
-package edu.famu.jobboard.models;
+package edu.famu.jobboard.models.savedjobs;
 
 import jakarta.annotation.Nullable;
 

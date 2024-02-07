@@ -1,11 +1,13 @@
-package edu.famu.jobboard.models;
+package edu.famu.jobboard.models.jobs;
 
+import edu.famu.jobboard.models.applications.Applications;
 import jakarta.annotation.Nullable;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
-public class Fields {
+public class Jobs {
     private @Nullable String jobId;
     private String jobTitle;
     private String company;
@@ -19,7 +21,7 @@ public class Fields {
 
     private Date expiryDate;
 
-    private List<Applications> applications;
+
     private int views;
 
 }

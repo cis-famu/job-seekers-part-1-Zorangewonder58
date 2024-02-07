@@ -1,6 +1,8 @@
-package edu.famu.jobboard.models;
+package edu.famu.jobboard.models.users;
 
+import edu.famu.jobboard.models.applications.Applications;
 import jakarta.annotation.Nullable;
+import java.util.List;
 
 public class Users {
     private @Nullable String userId;
@@ -12,5 +14,5 @@ public class Users {
 
     private String resumefileLocation;
 
-    private List<Applications> applications;
+
 }
