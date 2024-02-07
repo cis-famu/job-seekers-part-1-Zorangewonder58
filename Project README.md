@@ -13,63 +13,49 @@ Project Title
 
 [TOC]
 
-## Beginners Guide
-
-If you are a total beginner to this, start here!
-
-1. Visit hackmd.io
-2. Click "Sign in"
-3. Choose a way to sign in
-4. Start writing note!
-
 User story
 ---
 
 ```gherkin=
-Feature: Guess the word
+Feature: Job view
+    As a job searcher
+    I want to be able to see all avalible jobs
+    Because I want to select the best possible job for me
 
-  # The first example has two steps
-  Scenario: Maker starts a game
-    When the Maker starts a game
-    Then the Maker waits for a Breaker to join
+  
+  Scenario: User searches for Job
+    When the User goes to the Job view page
+    Then the user provides a criteria for the job they are looking for
+    And Jobs fitting that criteria are shown to the user
 
-  # The second example has three steps
-  Scenario: Breaker joins a game
-    Given the Maker has started a game with the word "silky"
-    When the Breaker joins the Maker's game
-    Then the Breaker must guess a word with 5 characters
+  
+  Scenario: User selects a job
+    Given the User is authenticated
+    When The User selects a Job
+    Then The user's selection will be saved to their profile
+    And The user will be directed to apply to the job
+
+
+
+
+Feature: Application
+  As someone who wants a job
+  I want to apply and have my information recorded
+  Because I want jobs to know that I am interested
+
+  Scenario: User applys to a job
+    Given the user is authenticated
+    When The user is viewing a job
+    And The user clicks "apply"
+    Then The user fills out an application
+    And the time of which they applied is recorded
+    And their user identification is recorded
+    And the selected job's identification is recorded as well
 ```
-> I choose a lazy person to do a hard job. Because a lazy person will find an easy way to do it. [name=Bill Gates]
-
-
-```gherkin=
-Feature: Shopping Cart
-  As a Shopper
-  I want to put items in my shopping cart
-  Because I want to manage items before I check out
-
-  Scenario: User adds item to cart
-    Given I'm a logged-in User
-    When I go to the Item page
-    And I click "Add item to cart"
-    Then the quantity of items in my cart should go up
-    And my subtotal should increment
-    And the warehouse inventory should decrement
-```
-
-> Read more about Gherkin here: https://docs.cucumber.io/gherkin/reference/
 
 User flows
 ---
-```sequence
-Alice->Bob: Hello Bob, how are you?
-Note right of Bob: Bob thinks
-Bob-->Alice: I am good thanks!
-Note left of Alice: Alice responds
-Alice->Bob: Where have you been?
-```
 
-> Read more about sequence-diagrams here: http://bramp.github.io/js-sequence-diagrams/
 
 Project Timeline
 ---
@@ -85,7 +71,7 @@ gantt
     anther task      : 24d
 ```
 
-> Read more about mermaid here: http://mermaid-js.github.io/mermaid/
+
 
 ## Appendix and FAQ
 
