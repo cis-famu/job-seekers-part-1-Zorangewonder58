@@ -19,5 +19,7 @@ public class ASavedJobs {
 @DocumentId
     private @Nullable String savedJobId;
 
-
+    public ASavedJobs(@Nullable String savedJobId) {
+        this.savedJobId = savedJobId;
+    }
 }

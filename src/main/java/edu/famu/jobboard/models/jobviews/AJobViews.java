@@ -19,4 +19,9 @@ public class AJobViews {
     @DocumentId
     private @Nullable String jobViewId;
     private LocalDateTime viewedAt;
+
+    public AJobViews(@Nullable String jobViewId, LocalDateTime viewedAt) {
+        this.jobViewId = jobViewId;
+        this.viewedAt = viewedAt;
+    }
 }

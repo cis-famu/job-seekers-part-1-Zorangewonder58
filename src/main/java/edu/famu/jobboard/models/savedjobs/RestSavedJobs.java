@@ -18,4 +18,10 @@ public class RestSavedJobs extends ASavedJobs {
         this.jobId = jobId;
         this.userId = userId;
     }
+
+    public RestSavedJobs(@Nullable String savedJobId, DocumentReference jobId, DocumentReference userId) {
+        super(savedJobId);
+        this.jobId = jobId;
+        this.userId = userId;
+    }
 }

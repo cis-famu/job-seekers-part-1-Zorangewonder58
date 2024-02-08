@@ -33,4 +33,16 @@ public class AJobs {
 
 
     private int views;
+
+    public AJobs(@Nullable String jobId, String jobTitle, String company, String jobLocation, String jobDescription, String jobRequirements, LocalDateTime postedAt, Date expiryDate, int views) {
+        this.jobId = jobId;
+        this.jobTitle = jobTitle;
+        this.company = company;
+        this.jobLocation = jobLocation;
+        this.jobDescription = jobDescription;
+        this.jobRequirements = jobRequirements;
+        this.postedAt = postedAt;
+        this.expiryDate = expiryDate;
+        this.views = views;
+    }
 }

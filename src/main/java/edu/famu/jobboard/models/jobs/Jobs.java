@@ -8,20 +8,6 @@ import java.util.Date;
 import java.util.List;
 
 public class Jobs {
-    private @Nullable String jobId;
-    private String jobTitle;
-    private String company;
-    private String jobLocation;
 
-    private String jobDescription;
-
-    private String jobRequirements;
-
-    private LocalDateTime postedAt;
-
-    private Date expiryDate;
-
-
-    private int views;
 
 }
