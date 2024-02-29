@@ -26,11 +26,5 @@ public class AUsers {
 
     private String resumefileLocation;
 
-    public AUsers(@Nullable String userId, String username, String email, String role, String resumefileLocation) {
-        this.userId = userId;
-        this.username = username;
-        this.email = email;
-        this.role = role;
-        this.resumefileLocation = resumefileLocation;
-    }
+
 }

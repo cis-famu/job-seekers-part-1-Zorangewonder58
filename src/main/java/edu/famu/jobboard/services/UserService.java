@@ -6,9 +6,11 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.firebase.cloud.FirestoreClient;
 import edu.famu.jobboard.models.users.Users;
+import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ExecutionException;
 
+@Service
 public class UserService {
 
     private Firestore firestore;

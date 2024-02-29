@@ -7,11 +7,13 @@ import com.google.firebase.database.annotations.Nullable;
 import edu.famu.jobboard.models.jobs.Jobs;
 import edu.famu.jobboard.models.savedjobs.SavedJobs;
 import edu.famu.jobboard.util.Utility;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+@Service
 public class SavedJobService {
 
     private Firestore firestore;

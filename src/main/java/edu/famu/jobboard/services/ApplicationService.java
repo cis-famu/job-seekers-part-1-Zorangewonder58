@@ -8,10 +8,13 @@ import edu.famu.jobboard.models.applications.Applications;
 import edu.famu.jobboard.models.jobs.Jobs;
 import edu.famu.jobboard.util.Utility;
 import jdk.jshell.execution.Util;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+@Service
 
 public class ApplicationService {
     private Firestore firestore;
@@ -21,6 +24,7 @@ public class ApplicationService {
         this.firestore = FirestoreClient.getFirestore();
     }
 
+    @Nullable
     public Applications documentSnapshotToApplication(DocumentSnapshot document)
     {
         if(document.exists())

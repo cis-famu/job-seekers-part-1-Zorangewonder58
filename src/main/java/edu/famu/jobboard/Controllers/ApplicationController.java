@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,6 @@ public class ApplicationController {
 
     private final ApplicationService applicationService;
 
-    private Firestore firestore;
 
     public ApplicationController(ApplicationService applicationService)
     {
@@ -61,6 +61,15 @@ public class ApplicationController {
         return applicationList;
     }
 
+
+    @Operation(summary = "Get a list of all the Application", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Jobs found"),
+            @ApiResponse(responseCode = "204", description = "no jobs found"),
+            @ApiResponse(responseCode = "500", description = "Unable to retrieve jobs",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiResponseFormat.class)))
+    })
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponseFormat<Applications>> getApplicationById(@PathVariable(name="application_id")String id)
     {
@@ -81,6 +90,14 @@ public class ApplicationController {
 
     }
 
+    @Operation(summary = "Get a list of all the Jobs", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Jobs found"),
+            @ApiResponse(responseCode = "204", description = "no jobs found"),
+            @ApiResponse(responseCode = "500", description = "Unable to retrieve jobs",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiResponseFormat.class)))
+    })
     @GetMapping("/app/job/{id}")
     public ResponseEntity<ApiResponseFormat<List<Applications>>> getApplicationbyJob(@PathVariable(name="job_id") String id)
     {

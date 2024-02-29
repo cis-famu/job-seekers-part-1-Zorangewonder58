@@ -1,8 +1,6 @@
 package edu.famu.jobboard.models.jobs;
 
-import com.google.cloud.Timestamp;
-import com.google.cloud.firestore.annotation.DocumentId;
-import com.google.protobuf.util.Timestamps;
+
 import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,18 +29,4 @@ public class AJobs {
 
     private Date expiryDate;
 
-
-    private int views;
-
-    public AJobs(@Nullable String jobId, String jobTitle, String company, String jobLocation, String jobDescription, String jobRequirements, LocalDateTime postedAt, Date expiryDate, int views) {
-        this.jobId = jobId;
-        this.jobTitle = jobTitle;
-        this.company = company;
-        this.jobLocation = jobLocation;
-        this.jobDescription = jobDescription;
-        this.jobRequirements = jobRequirements;
-        this.postedAt = postedAt;
-        this.expiryDate = expiryDate;
-        this.views = views;
-    }
 }

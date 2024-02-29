@@ -23,8 +23,5 @@ public abstract class Aapplications {
     private LocalDateTime appliedAt;
 
 
-    public Aapplications(String appId, LocalDateTime appliedAt) {
-        this.appId = appId;
-        this.appliedAt = appliedAt;
-    }
+
 }
