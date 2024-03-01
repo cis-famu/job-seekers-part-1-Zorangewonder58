@@ -37,13 +37,15 @@ public class SavedJobController {
     @Operation(summary = "Get a list of all the SavedJobs", method = "GET")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "SavedJobs found"),
-            @ApiResponse(responseCode = "204", description = "no savedjobs found"),
-            @ApiResponse(responseCode = "500", description = "Unable to retrieve jobs",
+            @ApiResponse(responseCode = "204", description = "no Savedjobs found"),
+            @ApiResponse(responseCode = "500", description = "Unable to retrieve Savedjobs",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiResponseFormat.class)))
     })
-    @GetMapping("/users/{id}")
-    public ResponseEntity<ApiResponseFormat<List<SavedJobs>>> getSavedJobByUser(@PathVariable(name="user_id") String id)
+
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "SavedJob details by user", required = true, useParameterTypeSchema = true)
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<ApiResponseFormat<List<SavedJobs>>> getSavedJobByUser(@PathVariable(name="id") String id)
     {
         try {
             List<SavedJobs> savedJobsList = savedJobService.getSavedJobsByUser(id);

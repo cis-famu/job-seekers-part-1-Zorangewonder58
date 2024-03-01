@@ -19,7 +19,7 @@ public class RestUsers extends AUsers {
     }
 
     public RestUsers(@Nullable String userId, String username, String email, String role, String resumefileLocation, List<DocumentReference> applications) {
-        super(userId, username, email, role, resumefileLocation);
+
         this.applications = applications;
     }
 

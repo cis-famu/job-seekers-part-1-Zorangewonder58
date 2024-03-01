@@ -71,8 +71,14 @@ gantt
     anther task      : 24d
 ```
 
+## ScreentoGif Walkthroughs
+
+**First Job Board
+![Job Board Walkthrough.gif](Job%20Board%20Walkthrough.gif)
 
 
+**Contains both bonus and assignment
+![Job Board Walkthrough Part 2.gif](Job%20Board%20Walkthrough%20Part%202.gif)
 ## Appendix and FAQ
 
 :::info

@@ -15,9 +15,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class ASavedJobs {
+public abstract class ASavedJobs {
 @DocumentId
-    private @Nullable String savedJobId;
+    protected @Nullable String savedJobId;
 
 
 }

@@ -30,7 +30,7 @@ public class UserService {
 
     public Users getUserById(String Userid) throws ExecutionException, InterruptedException
     {
-        DocumentReference userRef = firestore.collection("User").document(Userid);
+        DocumentReference userRef = firestore.collection("Users").document(Userid);
         ApiFuture<DocumentSnapshot> future = userRef.get();
 
         DocumentSnapshot documentSnapshot = future.get();

@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RestSavedJobs extends ASavedJobs {
 
-    private DocumentReference jobId;
+    protected DocumentReference jobId;
 
-    private DocumentReference userId;
+    protected DocumentReference userId;
 
     public RestSavedJobs(DocumentReference jobId, DocumentReference userId) {
         this.jobId = jobId;
@@ -20,7 +20,6 @@ public class RestSavedJobs extends ASavedJobs {
     }
 
     public RestSavedJobs(@Nullable String savedJobId, DocumentReference jobId, DocumentReference userId) {
-        super(savedJobId);
         this.jobId = jobId;
         this.userId = userId;
     }

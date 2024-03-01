@@ -18,9 +18,9 @@ import java.util.List;
 public abstract class Aapplications {
 
     @DocumentId
-    private @Nullable String appId;
+    protected @Nullable String appId;
 
-    private LocalDateTime appliedAt;
+    protected Timestamp appliedAt;
 
 
 

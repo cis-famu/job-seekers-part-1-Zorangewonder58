@@ -1,11 +1,14 @@
 package edu.famu.jobboard.models.jobs;
 
 
+import com.google.cloud.Timestamp;
+import com.google.cloud.firestore.annotation.DocumentId;
 import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -14,19 +17,20 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AJobs {
+public abstract class AJobs {
 
-    private @Nullable String jobId;
-    private String jobTitle;
-    private String company;
-    private String jobLocation;
+    @DocumentId
+    protected @Nullable String jobId;
+    protected String jobTitle;
+    protected String company;
+    protected String jobLocation;
 
-    private String jobDescription;
+    protected String jobDescription;
 
-    private String jobRequirements;
+    protected String jobRequirements;
 
-    private LocalDateTime postedAt;
+    protected Timestamp postedAt;
 
-    private Date expiryDate;
+    protected Timestamp expiryDate;
 
 }

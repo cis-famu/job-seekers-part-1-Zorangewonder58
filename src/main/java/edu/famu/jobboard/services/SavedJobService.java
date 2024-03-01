@@ -47,8 +47,8 @@ public class SavedJobService {
 
     public List<SavedJobs> getSavedJobsByUser(String UserId) throws ExecutionException, InterruptedException
     {
-        DocumentReference SavedJobRef = Utility.retrieveDocumentReference("SavedJobs", UserId);
-        Query query = firestore.collection("SavedJobs").whereEqualTo("UserId", SavedJobRef);
+        DocumentReference SavedJobRef = Utility.retrieveDocumentReference("Users", UserId);
+        Query query = firestore.collection("SavedJobs").whereEqualTo("userId", SavedJobRef);
         return getSavedJobsList(query);
 
     }

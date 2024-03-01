@@ -15,16 +15,16 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class AUsers {
+public abstract class AUsers {
 @DocumentId
-    private @Nullable String userId;
+    protected @Nullable String userId;
 
-    private String username;
-    private String email;
+    protected String username;
+    protected String email;
 
-    private String role;
+    protected String role;
 
-    private String resumefileLocation;
+    protected String resumefileLocation;
 
 
 }

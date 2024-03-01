@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class RestApplications extends Aapplications {
 
-    protected DocumentReference jobId;
+    protected DocumentReference JobId;
 
 
     protected DocumentReference userId;

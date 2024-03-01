@@ -9,7 +9,7 @@ In this submission we continue to build the backend API for our application.
 
 - Create the following endpoints:  ***(14 points)***
     - `GET api/jobs/` - Get all jobs
-    - `GET api/jobs/{id}` - Get a job by ID
+    - `GET api/jobs /{id}` - Get a job by ID
     - `GET api/jobs/company/{id}` - Get a job by the company
     - `GET api/users/{id}` - Get a user by ID
     - `GET api/app/{id}` - Get an application by ID

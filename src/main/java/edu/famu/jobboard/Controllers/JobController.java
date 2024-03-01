@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@RequestMapping("/api/jobs")
+@RequestMapping("/api/jobs")//Base URL: http://localhost:8080/api/users
 @Tag(name="Jobs", description = "Retrieves information related to jobs")
 public class JobController {
 
@@ -41,12 +41,22 @@ public class JobController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiResponseFormat.class)))
     })
-    @GetMapping("/")
-    public ResponseEntity<ApiResponseFormat<List<Jobs>>> getAllJobs()
+
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Job details", required = true, useParameterTypeSchema = true)
+    @GetMapping(path = "/")
+    public ResponseEntity<ApiResponseFormat<List<Jobs>>> getAllJobs(@RequestParam(required = false) Boolean isExpired)
     {
         try
         {
-          List<Jobs> jobsList = jobService.getallJobs();
+          List<Jobs> jobsList;
+
+
+          if(isExpired != null && isExpired)
+          {
+              jobsList = jobService.getNonExpiredJobs();
+          }else
+              jobsList = jobService.getallJobs();
+
           return ResponseEntity.ok(new ApiResponseFormat<>(true, "Job retrieved successfully", jobsList, null));
         }catch(ExecutionException | InterruptedException e)
         {
@@ -55,7 +65,8 @@ public class JobController {
         }
     }
 
-    @GetMapping("/{job_id}")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Job details by Id", required = true, useParameterTypeSchema = true)
+    @GetMapping(path= "/{job_id}")
     public ResponseEntity<ApiResponseFormat<Jobs>> getJobById(@PathVariable(name="job_id")String id)
     {
         try {
@@ -75,11 +86,20 @@ public class JobController {
 
     }
 
-    @GetMapping("/company/{id}")
-    public ResponseEntity<ApiResponseFormat<List<Jobs>>> getJobByCompany(@PathVariable(name="company") String company)
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Job details by company", required = true, useParameterTypeSchema = true)
+    @GetMapping(path = "/company/{company}")
+    public ResponseEntity<ApiResponseFormat<List<Jobs>>> getJobByCompany(@RequestParam(required = false) Boolean isExpired,@PathVariable(name="company") String company)
     {
         try {
-            List<Jobs> jobsList = jobService.getJobsByCompany(company);
+            List<Jobs> jobsList;
+
+            if(isExpired != null && isExpired)
+            {
+                jobsList = jobService.getNonExpiredJobsByCompany(company);
+            }else
+               jobsList = jobService.getJobsByCompany(company);
+
+
             return ResponseEntity.ok(new ApiResponseFormat<>(true, "Jobs returned successfully", jobsList, null));
         }catch (ExecutionException | InterruptedException e)
         {
@@ -99,7 +119,7 @@ public class JobController {
                             schema = @Schema(implementation = ApiResponseFormat.class)))
     })
 
-    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Job details", required = true, useParameterTypeSchema = true)
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Add Job details", required = true, useParameterTypeSchema = true)
     @PostMapping(path = "/", produces = Utility.DEFAULT_MEDIA_TYPE, consumes = Utility.DEFAULT_MEDIA_TYPE)
     public ResponseEntity<ApiResponseFormat<String>> addJobs(@RequestBody Jobs jobs)
     {
@@ -122,6 +142,7 @@ public class JobController {
                     content = @Content(mediaType = Utility.DEFAULT_MEDIA_TYPE,
                             schema = @Schema(implementation = ApiResponseFormat.class)))
     })
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Update Job details details", required = true, useParameterTypeSchema = true)
     @PutMapping(path = "/{job_id}", produces = Utility.DEFAULT_MEDIA_TYPE, consumes = Utility.DEFAULT_MEDIA_TYPE)
     public ResponseEntity<ApiResponseFormat<WriteResult>> updateJob(@PathVariable("job_id") String id, @RequestBody Map<String, Object> updateValues)
     {

@@ -64,14 +64,16 @@ public class ApplicationController {
 
     @Operation(summary = "Get a list of all the Application", method = "GET")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Jobs found"),
-            @ApiResponse(responseCode = "204", description = "no jobs found"),
-            @ApiResponse(responseCode = "500", description = "Unable to retrieve jobs",
+            @ApiResponse(responseCode = "200", description = "Application found"),
+            @ApiResponse(responseCode = "204", description = "no applications found"),
+            @ApiResponse(responseCode = "500", description = "Unable to retrieve applications",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiResponseFormat.class)))
     })
-    @GetMapping("/{id}")
-    public ResponseEntity<ApiResponseFormat<Applications>> getApplicationById(@PathVariable(name="application_id")String id)
+
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Application details by Id", required = true, useParameterTypeSchema = true)
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<ApiResponseFormat<Applications>> getApplicationById(@PathVariable(name="id")String id)
     {
         try {
             Applications applications = applicationService.getApplicationById(id);
@@ -98,8 +100,10 @@ public class ApplicationController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiResponseFormat.class)))
     })
-    @GetMapping("/app/job/{id}")
-    public ResponseEntity<ApiResponseFormat<List<Applications>>> getApplicationbyJob(@PathVariable(name="job_id") String id)
+
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Application details by job", required = true, useParameterTypeSchema = true)
+    @GetMapping(path ="/job/{id}")
+    public ResponseEntity<ApiResponseFormat<List<Applications>>> getApplicationbyJob(@PathVariable(name="id") String id)
     {
         try {
             List<Applications> applicationsList = applicationService.getApplicationsByJobId(id);

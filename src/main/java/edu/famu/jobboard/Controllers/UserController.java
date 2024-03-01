@@ -32,9 +32,18 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Operation(summary = "Get a list of all the Jobs", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Jobs found"),
+            @ApiResponse(responseCode = "204", description = "no jobs found"),
+            @ApiResponse(responseCode = "500", description = "Unable to retrieve jobs",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiResponseFormat.class)))
+    })
 
 
-    @GetMapping("/{id}")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User details", required = true, useParameterTypeSchema = true)
+    @GetMapping(path = "/{user_id}")
     public ResponseEntity<ApiResponseFormat<Users>> getUserbyId(@PathVariable(name="user_id")String id)
     {
         try {

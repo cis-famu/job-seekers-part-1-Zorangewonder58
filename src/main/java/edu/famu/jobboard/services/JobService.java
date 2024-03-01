@@ -1,6 +1,7 @@
 package edu.famu.jobboard.services;
 
 import com.google.api.core.ApiFuture;
+import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.database.annotations.Nullable;
@@ -9,6 +10,7 @@ import edu.famu.jobboard.util.Utility;
 import org.springframework.stereotype.Service;
 
 import javax.print.Doc;
+import java.sql.Time;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
@@ -60,6 +62,14 @@ public class JobService {
         return jobsList;
     }
 
+    public List<Jobs> getNonExpiredJobs() throws ExecutionException, InterruptedException
+    {
+        Timestamp currentDate = Timestamp.now();
+
+        Query query = firestore.collection("Jobs").whereGreaterThan("expiryDate", currentDate);
+        return getJobList(query);
+    }
+
     public Jobs getJobById(String JobId) throws ExecutionException, InterruptedException {
         DocumentReference JobRef = firestore.collection("Jobs").document(JobId);//Select * FROM Users Where id = 'userId'
         ApiFuture<DocumentSnapshot> future = JobRef.get();
@@ -71,10 +81,21 @@ public class JobService {
 
     public List<Jobs> getJobsByCompany(String company) throws ExecutionException, InterruptedException
     {
-        DocumentReference JobRef = Utility.retrieveDocumentReference("Jobs", company);
-        Query query = firestore.collection("Jobs").whereEqualTo("Company", JobRef);
+        //DocumentReference JobRef = Utility.retrieveDocumentReference("Jobs", company);
+        Query query = firestore.collection("Jobs").whereEqualTo("company", company);
         return getJobList(query);
 
+    }
+
+    public List<Jobs> getNonExpiredJobsByCompany(String company) throws ExecutionException, InterruptedException
+    {
+        Timestamp currentDate = Timestamp.now();
+
+        Query query = firestore.collection("Jobs")
+                .whereEqualTo("company", company)
+                .whereGreaterThan("expiryDate", currentDate);
+
+        return getJobList(query);
     }
 
     public String createJob(Jobs job) throws ExecutionException, InterruptedException

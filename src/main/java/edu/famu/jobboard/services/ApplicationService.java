@@ -58,8 +58,8 @@ public class ApplicationService {
 
     public List<Applications> getApplicationsByJobId(String jobId) throws  ExecutionException, InterruptedException
     {
-        DocumentReference AppRef = Utility.retrieveDocumentReference("Applications", jobId);
-        Query query = firestore.collection("Applications").whereEqualTo("JobId", jobId);
+        DocumentReference AppRef = Utility.retrieveDocumentReference("Jobs", jobId);
+        Query query = firestore.collection("Applications").whereEqualTo("JobId", AppRef);
         return getApplicationList(query);
 
     }

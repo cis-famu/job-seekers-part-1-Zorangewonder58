@@ -15,10 +15,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AJobViews {
+public abstract class AJobViews {
     @DocumentId
-    private @Nullable String jobViewId;
-    private LocalDateTime viewedAt;
+    protected @Nullable String jobViewId;
+    protected LocalDateTime viewedAt;
 
 
 }
