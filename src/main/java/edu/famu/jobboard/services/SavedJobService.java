@@ -52,4 +52,50 @@ public class SavedJobService {
         return getSavedJobsList(query);
 
     }
+
+
+    //Save a particular job for a particular user
+    /*public String addSavedJob(String JobId, String UserId) throws ExecutionException,InterruptedException
+    {
+        Query query = firestore.collection("Jobviews").whereEqualTo("JobId", JobId).whereEqualTo("UserId", UserId);
+
+        CollectionReference savedJobsCollection = firestore.collection("SavedJobs");
+
+        List<SavedJobs> NewJob = getSavedJobsList(query);
+
+        ApiFuture<DocumentReference> future = savedJobsCollection.add(NewJob);
+
+        DocumentReference docRef = future.get();
+
+        return docRef.getId();
+    }*/
+
+    public String addSavedJob(SavedJobs savedJobs) throws ExecutionException,InterruptedException
+    {
+        //Query query = firestore.collection("Jobviews").whereEqualTo("JobId", JobId).whereEqualTo("UserId", UserId);
+
+        CollectionReference savedJobsCollection = firestore.collection("SavedJobs");
+
+        ApiFuture<DocumentReference> future = savedJobsCollection.add(savedJobs);
+
+        DocumentReference docRef = future.get();
+
+        return docRef.getId();
+    }
+
+    //Delete a particular save job for a particular user
+    public WriteResult removeSavedJob(String id, String UserId) throws ExecutionException, InterruptedException {
+
+        DocumentReference jobRef =firestore.collection("SavedJobs").document(id);
+
+        DocumentReference userRef = firestore.collection("Users").document(UserId);
+
+        Query query = firestore.collection("SavedJobs").whereEqualTo("userId", userRef).whereEqualTo("SavedJobId", jobRef);
+
+        DocumentReference savedJobRef = query.get().get().getDocuments().get(0).getReference();
+
+        ApiFuture<WriteResult> result = savedJobRef.delete();
+
+        return result.get();
+    }
 }

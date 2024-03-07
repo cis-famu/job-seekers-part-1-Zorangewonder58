@@ -79,6 +79,10 @@ gantt
 
 **Contains both bonus and assignment
 ![Job Board Walkthrough Part 2.gif](Job%20Board%20Walkthrough%20Part%202.gif)
+
+**Contains code and run through of GETS
+![Job Board Walkthrough Part 3.gif](Job%20Board%20Walkthrough%20Part%203.gif)
+
 ## Appendix and FAQ
 
 :::info

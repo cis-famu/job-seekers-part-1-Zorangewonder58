@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -113,5 +114,56 @@ public class ApplicationController {
                     .body(new ApiResponseFormat<>(false, "Unsuccessful", null, e.getMessage()));
         }
     }
+
+    //POST api/app/` - Create an application
+    @Operation(summary = "Create an application", method = "POST")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Application successfully created"),
+            @ApiResponse(responseCode = "500", description = "Application was not able to be created",
+                content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiResponseFormat.class)))
+
+    })
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Create Application", required = true, useParameterTypeSchema = true)
+    @PostMapping(path="/")
+    public ResponseEntity<ApiResponseFormat<String>> createApplication(@RequestBody Applications applications)
+    {
+        try
+        {
+            String id = applicationService.createApp(applications);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(new ApiResponseFormat<>(true, "Application successfully created", id, null));
+        }
+        catch(ExecutionException | InterruptedException e)
+        {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponseFormat<>(false, "Error creating Application.", null, e));
+        }
+    }
+
+    // - `DELETE api/app/{id}` - Delete an applicantion by ID
+    @Operation(summary = "Delete an application", method = "DELETE")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Application successfully deleted"),
+            @ApiResponse(responseCode = "500", description = "Application was not able to be deleted",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiResponseFormat.class)))
+
+    })
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Delete Application", required = true, useParameterTypeSchema = true)
+    @PostMapping(path="/{id}")
+    public ResponseEntity<ApiResponseFormat<WriteResult>> deleteApp(@PathVariable("id") String id)
+    {
+        try
+        {
+            WriteResult result = applicationService.deleteApp(id);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ApiResponseFormat<>(false, "App successfully deleted", result, null));
+
+        }catch(ExecutionException | InterruptedException e)
+        {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponseFormat<>(false, "Error deleting job", null, e));
+        }
+    }
+
 
 }

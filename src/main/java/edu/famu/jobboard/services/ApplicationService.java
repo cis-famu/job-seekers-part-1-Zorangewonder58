@@ -64,4 +64,27 @@ public class ApplicationService {
 
     }
 
+
+    //Create an application
+    public String createApp(Applications applications) throws ExecutionException, InterruptedException
+    {
+        CollectionReference AppsCollection = firestore.collection(("Applications"));
+
+        ApiFuture<DocumentReference> future = AppsCollection.add(applications);
+
+        DocumentReference docRef = future.get();
+
+        return docRef.getId();
+    }
+
+    //Delete an application by ID
+    public WriteResult deleteApp(String id) throws ExecutionException, InterruptedException
+    {
+        DocumentReference appRef = firestore.collection("Applications").document(id);
+
+        ApiFuture<WriteResult> result = appRef.delete();
+
+        return result.get();
+    }
+
 }

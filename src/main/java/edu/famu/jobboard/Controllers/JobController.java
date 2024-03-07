@@ -110,7 +110,7 @@ public class JobController {
 
 
 
-
+    //POST api/jobs/` - Create a job
     @Operation(summary = "Create a new Job", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Jobs successfully created"),
@@ -119,8 +119,8 @@ public class JobController {
                             schema = @Schema(implementation = ApiResponseFormat.class)))
     })
 
-    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Add Job details", required = true, useParameterTypeSchema = true)
-    @PostMapping(path = "/", produces = Utility.DEFAULT_MEDIA_TYPE, consumes = Utility.DEFAULT_MEDIA_TYPE)
+    //@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Add Job details", required = true, useParameterTypeSchema = true)
+    @PostMapping(path = "/")
     public ResponseEntity<ApiResponseFormat<String>> addJobs(@RequestBody Jobs jobs)
     {
         try {
@@ -135,6 +135,7 @@ public class JobController {
 
     }
 
+    //PUT api/jobs/{id}` - Update a job by ID
     @Operation(description = "Update job details", method="PUT")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Jobs successfully updated"),
@@ -143,7 +144,7 @@ public class JobController {
                             schema = @Schema(implementation = ApiResponseFormat.class)))
     })
     @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Update Job details details", required = true, useParameterTypeSchema = true)
-    @PutMapping(path = "/{job_id}", produces = Utility.DEFAULT_MEDIA_TYPE, consumes = Utility.DEFAULT_MEDIA_TYPE)
+    @PutMapping(path = "/{job_id}")
     public ResponseEntity<ApiResponseFormat<WriteResult>> updateJob(@PathVariable("job_id") String id, @RequestBody Map<String, Object> updateValues)
     {
         //Two different types of ways to pass a value in one method
@@ -160,6 +161,32 @@ public class JobController {
                     .body(new ApiResponseFormat<>(false, "Error updating job", null, e));
 
         }
+    }
+
+    //DELETE api/jobs/{id}` - Delete a job
+    @Operation(description = "Delete job details", method="DELETE")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Jobs successfully deleted"),
+            @ApiResponse(responseCode = "500", description = "Unable to delete job",
+                    content = @Content(mediaType = Utility.DEFAULT_MEDIA_TYPE,
+                            schema = @Schema(implementation = ApiResponseFormat.class)))
+    })
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Delete Job details details", required = true, useParameterTypeSchema = true)
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<ApiResponseFormat<WriteResult>> deleteJob(@PathVariable("id") String id)
+    {
+        try
+        {
+            WriteResult result = jobService.removeJob(id);
+
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ApiResponseFormat<>(false, "Job successfully deleted", result, null));
+        }catch (ExecutionException | InterruptedException e)
+        {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponseFormat<>(false, "Error deleting job", null, e));
+        }
+
     }
 
 }

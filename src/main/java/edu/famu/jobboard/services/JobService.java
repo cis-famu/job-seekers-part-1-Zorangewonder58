@@ -98,6 +98,7 @@ public class JobService {
         return getJobList(query);
     }
 
+    //`POST api/jobs/` - Create a job
     public String createJob(Jobs job) throws ExecutionException, InterruptedException
     {
         CollectionReference jobsCollection = firestore.collection(("Jobs"));
@@ -109,6 +110,7 @@ public class JobService {
         return docRef.getId();
     }
 
+    //PUT api/jobs/{id}` - Update a job by ID
     public WriteResult updateJob(String id, Map<String, Object> updateFields) throws ExecutionException, InterruptedException {
         String[] allowed = {"applications", "company", "expiryDate", "jobDescription", "jobLocation", "jobRequirements", "jobTitle", "postedAt", "views"};
 
@@ -128,6 +130,17 @@ public class JobService {
         DocumentReference userDoc = firestore.collection("Jobs").document(id);
         ApiFuture<WriteResult> result = userDoc.update((formattedValues));
 
+        return result.get();
+    }
+
+    //DELETE api/jobs/{id}` - Delete a job
+    public WriteResult removeJob(String id) throws ExecutionException, InterruptedException {
+        DocumentReference JobRef =firestore.collection("Jobs").document(id);
+
+
+
+
+        ApiFuture<WriteResult> result = JobRef.delete(); //If no refrences, just need this line and refrence line
         return result.get();
     }
 
